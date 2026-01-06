@@ -133,4 +133,16 @@ git remote add origin https://github.com/DeepakDSA/ArUco-Detection-.git  # if no
 git push -u origin main
 ```
 
+# Show first 10 rows
+head -n 10 /data/yash_project/frames/metrics.csv
+
+# Show last 10 rows
+tail -n 10 /data/yash_project/frames/metrics.csv
+
+# Count total rows
+wc -l /data/yash_project/frames/metrics.csv
+
+# Pretty column view (scrollable)
+column -t -s ',' /data/yash_project/frames/metrics.csv | less -S
+
 Ensure the folder is shared with the service account (for Google API uploads), or use `rclone` which uses your `gdrive` remote.
