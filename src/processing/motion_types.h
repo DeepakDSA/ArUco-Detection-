@@ -20,5 +20,6 @@ struct TrackerState {
     int marker_id = -1;
     uint64_t last_saved_us = 0;
     uint64_t last_live_us = 0; // last time a live snapshot was written
+    uint64_t last_metrics_us = 0; // last time metrics were sent
     bool tracking = false;
 };

@@ -11,7 +11,8 @@ public:
                      int fr_num=110, int fr_den=1,
                      int io_mode=0, int queue_buffers=8, int max_buffers=8,
                      bool drop=true, bool sync=false,
-                     bool reuse_buffer=false);
+                     bool reuse_buffer=false,
+                     const std::string& device="/dev/video0");
     ~V4L2CameraSource() override;
 
     bool open() override;
@@ -36,4 +37,6 @@ private:
     // optional reuse buffer to avoid per-frame allocations
     bool reuse_buffer_ = false;
     cv::Mat scratch_;
+
+    std::string device_ = "/dev/video0";
 };

@@ -2,6 +2,7 @@
 #include "motion_update.h"
 #include "frame_writer.h"
 #include "../network/udp_sender.h"
+#include "../util/csv_logger.h"
 
 #include <sstream>
 #include <iomanip>
@@ -11,6 +12,10 @@ using namespace cv;
 ArucoTracker::ArucoTracker() {
     dict_ = aruco::getPredefinedDictionary(aruco::DICT_4X4_50);
     lk_ = cuda::SparsePyrLKOpticalFlow::create();
+    // Tune LK for speed: fewer pyramid levels and smaller window
+    lk_->setMaxLevel(2);            // default 3
+    lk_->setWinSize({15,15});       // default 21x21
+    lk_->setNumIters(10);           // keep iterations moderate
 }
 
 void ArucoTracker::process(const Mat& frame, uint64_t ts_us) {
@@ -23,8 +28,13 @@ void ArucoTracker::process(const Mat& frame, uint64_t ts_us) {
     if (state_.tracking && have_prev_)
         track(frame, ts_us);
 
+    // Append CSV metrics for each processed frame (asynchronous logger)
+    if (options_.enable_csv) {
+        CsvLogger::instance().log(ts_us, state_);
+    }
+
     // Optionally save frame + metrics once per second
-    if (state_.tracking && ts_us - state_.last_saved_us > 1000000ULL) {
+    if (options_.enable_save && state_.tracking && ts_us - state_.last_saved_us > 1000000ULL) {
         // build JSON metrics with per-quadrant "valid" flag and safer values
         std::ostringstream os;
         os << std::fixed << std::setprecision(2);
@@ -47,15 +57,35 @@ void ArucoTracker::process(const Mat& frame, uint64_t ts_us) {
         // Save frame and metrics (background work)
         save_frame_and_metrics(frame, json, ts_us);
 
-        // Send UDP metrics to Flask receiver
-        send_metrics_udp(json);
-
         state_.last_saved_us = ts_us;
+    }
+
+    // Send UDP metrics at 10Hz independently of saving
+    const uint64_t METRIC_PERIOD_US = 100000ULL; // 100ms
+    if (options_.enable_metrics && state_.tracking && ts_us - state_.last_metrics_us > METRIC_PERIOD_US) {
+        // Reuse latest JSON; if none, build a compact one
+        std::ostringstream os;
+        os << std::fixed << std::setprecision(2);
+        os << "{\"marker_id\":" << state_.marker_id << ",\"ts_us\":" << ts_us << ",\"quadrants\":[";
+        for (int i=0;i<4;i++) {
+            auto& q = state_.q[i];
+            if (i) os << ",";
+            if (!q.valid) {
+                os << "{\"valid\":false,\"vx\":null,\"vy\":null,\"ax\":null,\"ay\":null}";
+            } else {
+                auto& m = q.motion;
+                os << "{\"valid\":true,\"vx\":" << m.vel.x << ",\"vy\":" << m.vel.y
+                   << ",\"ax\":" << m.acc.x << ",\"ay\":" << m.acc.y << "}";
+            }
+        }
+        os << "]}";
+        send_metrics_udp(os.str());
+        state_.last_metrics_us = ts_us;
     }
 
     // Write a low-rate live jpg snapshot for MJPEG streaming (default 10 FPS)
     const uint64_t LIVE_PERIOD_US = 100000ULL; // 100ms -> 10FPS
-    if (ts_us - state_.last_live_us > LIVE_PERIOD_US) {
+    if (options_.enable_live && ts_us - state_.last_live_us > LIVE_PERIOD_US) {
         try {
             Mat vis;
             if (frame.channels() == 1) cvtColor(frame, vis, COLOR_GRAY2BGR);
@@ -94,7 +124,15 @@ void ArucoTracker::process(const Mat& frame, uint64_t ts_us) {
             }
 
             std::vector<int> jpg_params = {cv::IMWRITE_JPEG_QUALITY, 75};
-            cv::imwrite("/tmp/live.jpg", vis, jpg_params);
+            std::vector<uchar> enc;
+            cv::imencode(".jpg", vis, enc, jpg_params);
+            // write to /tmp/live.jpg without re-encoding
+            {
+                std::ofstream f("/tmp/live.jpg", std::ios::binary);
+                if (f.good()) f.write(reinterpret_cast<const char*>(enc.data()), static_cast<std::streamsize>(enc.size()));
+            }
+            // also send via UDP for Flask receiver
+            send_jpeg_udp(enc, "127.0.0.1", 5002);
             state_.last_live_us = ts_us;
         } catch (const std::exception& e) {
             std::cerr << "Live snapshot write failed: " << e.what() << std::endl;

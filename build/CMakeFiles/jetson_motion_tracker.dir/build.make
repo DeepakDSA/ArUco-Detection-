@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/robo/Desktop/yash_project/dsa
+CMAKE_SOURCE_DIR = /home/robo/Desktop/Aruco-DSA
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/robo/Desktop/yash_project/dsa/build
+CMAKE_BINARY_DIR = /home/robo/Desktop/Aruco-DSA/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/jetson_motion_tracker.dir/depend.make
@@ -59,73 +59,87 @@ include CMakeFiles/jetson_motion_tracker.dir/flags.make
 
 CMakeFiles/jetson_motion_tracker.dir/src/main.cpp.o: CMakeFiles/jetson_motion_tracker.dir/flags.make
 CMakeFiles/jetson_motion_tracker.dir/src/main.cpp.o: ../src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/robo/Desktop/yash_project/dsa/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/jetson_motion_tracker.dir/src/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/jetson_motion_tracker.dir/src/main.cpp.o -c /home/robo/Desktop/yash_project/dsa/src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/robo/Desktop/Aruco-DSA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/jetson_motion_tracker.dir/src/main.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/jetson_motion_tracker.dir/src/main.cpp.o -c /home/robo/Desktop/Aruco-DSA/src/main.cpp
 
 CMakeFiles/jetson_motion_tracker.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/jetson_motion_tracker.dir/src/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/robo/Desktop/yash_project/dsa/src/main.cpp > CMakeFiles/jetson_motion_tracker.dir/src/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/robo/Desktop/Aruco-DSA/src/main.cpp > CMakeFiles/jetson_motion_tracker.dir/src/main.cpp.i
 
 CMakeFiles/jetson_motion_tracker.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/jetson_motion_tracker.dir/src/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/robo/Desktop/yash_project/dsa/src/main.cpp -o CMakeFiles/jetson_motion_tracker.dir/src/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/robo/Desktop/Aruco-DSA/src/main.cpp -o CMakeFiles/jetson_motion_tracker.dir/src/main.cpp.s
 
 CMakeFiles/jetson_motion_tracker.dir/src/pipeline/v4l2_source.cpp.o: CMakeFiles/jetson_motion_tracker.dir/flags.make
 CMakeFiles/jetson_motion_tracker.dir/src/pipeline/v4l2_source.cpp.o: ../src/pipeline/v4l2_source.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/robo/Desktop/yash_project/dsa/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/jetson_motion_tracker.dir/src/pipeline/v4l2_source.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/jetson_motion_tracker.dir/src/pipeline/v4l2_source.cpp.o -c /home/robo/Desktop/yash_project/dsa/src/pipeline/v4l2_source.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/robo/Desktop/Aruco-DSA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/jetson_motion_tracker.dir/src/pipeline/v4l2_source.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/jetson_motion_tracker.dir/src/pipeline/v4l2_source.cpp.o -c /home/robo/Desktop/Aruco-DSA/src/pipeline/v4l2_source.cpp
 
 CMakeFiles/jetson_motion_tracker.dir/src/pipeline/v4l2_source.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/jetson_motion_tracker.dir/src/pipeline/v4l2_source.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/robo/Desktop/yash_project/dsa/src/pipeline/v4l2_source.cpp > CMakeFiles/jetson_motion_tracker.dir/src/pipeline/v4l2_source.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/robo/Desktop/Aruco-DSA/src/pipeline/v4l2_source.cpp > CMakeFiles/jetson_motion_tracker.dir/src/pipeline/v4l2_source.cpp.i
 
 CMakeFiles/jetson_motion_tracker.dir/src/pipeline/v4l2_source.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/jetson_motion_tracker.dir/src/pipeline/v4l2_source.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/robo/Desktop/yash_project/dsa/src/pipeline/v4l2_source.cpp -o CMakeFiles/jetson_motion_tracker.dir/src/pipeline/v4l2_source.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/robo/Desktop/Aruco-DSA/src/pipeline/v4l2_source.cpp -o CMakeFiles/jetson_motion_tracker.dir/src/pipeline/v4l2_source.cpp.s
+
+CMakeFiles/jetson_motion_tracker.dir/src/pipeline/nvargus_source.cpp.o: CMakeFiles/jetson_motion_tracker.dir/flags.make
+CMakeFiles/jetson_motion_tracker.dir/src/pipeline/nvargus_source.cpp.o: ../src/pipeline/nvargus_source.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/robo/Desktop/Aruco-DSA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/jetson_motion_tracker.dir/src/pipeline/nvargus_source.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/jetson_motion_tracker.dir/src/pipeline/nvargus_source.cpp.o -c /home/robo/Desktop/Aruco-DSA/src/pipeline/nvargus_source.cpp
+
+CMakeFiles/jetson_motion_tracker.dir/src/pipeline/nvargus_source.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/jetson_motion_tracker.dir/src/pipeline/nvargus_source.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/robo/Desktop/Aruco-DSA/src/pipeline/nvargus_source.cpp > CMakeFiles/jetson_motion_tracker.dir/src/pipeline/nvargus_source.cpp.i
+
+CMakeFiles/jetson_motion_tracker.dir/src/pipeline/nvargus_source.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/jetson_motion_tracker.dir/src/pipeline/nvargus_source.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/robo/Desktop/Aruco-DSA/src/pipeline/nvargus_source.cpp -o CMakeFiles/jetson_motion_tracker.dir/src/pipeline/nvargus_source.cpp.s
 
 CMakeFiles/jetson_motion_tracker.dir/src/pipeline/video_file_source.cpp.o: CMakeFiles/jetson_motion_tracker.dir/flags.make
 CMakeFiles/jetson_motion_tracker.dir/src/pipeline/video_file_source.cpp.o: ../src/pipeline/video_file_source.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/robo/Desktop/yash_project/dsa/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/jetson_motion_tracker.dir/src/pipeline/video_file_source.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/jetson_motion_tracker.dir/src/pipeline/video_file_source.cpp.o -c /home/robo/Desktop/yash_project/dsa/src/pipeline/video_file_source.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/robo/Desktop/Aruco-DSA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/jetson_motion_tracker.dir/src/pipeline/video_file_source.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/jetson_motion_tracker.dir/src/pipeline/video_file_source.cpp.o -c /home/robo/Desktop/Aruco-DSA/src/pipeline/video_file_source.cpp
 
 CMakeFiles/jetson_motion_tracker.dir/src/pipeline/video_file_source.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/jetson_motion_tracker.dir/src/pipeline/video_file_source.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/robo/Desktop/yash_project/dsa/src/pipeline/video_file_source.cpp > CMakeFiles/jetson_motion_tracker.dir/src/pipeline/video_file_source.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/robo/Desktop/Aruco-DSA/src/pipeline/video_file_source.cpp > CMakeFiles/jetson_motion_tracker.dir/src/pipeline/video_file_source.cpp.i
 
 CMakeFiles/jetson_motion_tracker.dir/src/pipeline/video_file_source.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/jetson_motion_tracker.dir/src/pipeline/video_file_source.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/robo/Desktop/yash_project/dsa/src/pipeline/video_file_source.cpp -o CMakeFiles/jetson_motion_tracker.dir/src/pipeline/video_file_source.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/robo/Desktop/Aruco-DSA/src/pipeline/video_file_source.cpp -o CMakeFiles/jetson_motion_tracker.dir/src/pipeline/video_file_source.cpp.s
 
 CMakeFiles/jetson_motion_tracker.dir/src/pipeline/image_sequence_source.cpp.o: CMakeFiles/jetson_motion_tracker.dir/flags.make
 CMakeFiles/jetson_motion_tracker.dir/src/pipeline/image_sequence_source.cpp.o: ../src/pipeline/image_sequence_source.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/robo/Desktop/yash_project/dsa/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/jetson_motion_tracker.dir/src/pipeline/image_sequence_source.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/jetson_motion_tracker.dir/src/pipeline/image_sequence_source.cpp.o -c /home/robo/Desktop/yash_project/dsa/src/pipeline/image_sequence_source.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/robo/Desktop/Aruco-DSA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/jetson_motion_tracker.dir/src/pipeline/image_sequence_source.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/jetson_motion_tracker.dir/src/pipeline/image_sequence_source.cpp.o -c /home/robo/Desktop/Aruco-DSA/src/pipeline/image_sequence_source.cpp
 
 CMakeFiles/jetson_motion_tracker.dir/src/pipeline/image_sequence_source.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/jetson_motion_tracker.dir/src/pipeline/image_sequence_source.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/robo/Desktop/yash_project/dsa/src/pipeline/image_sequence_source.cpp > CMakeFiles/jetson_motion_tracker.dir/src/pipeline/image_sequence_source.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/robo/Desktop/Aruco-DSA/src/pipeline/image_sequence_source.cpp > CMakeFiles/jetson_motion_tracker.dir/src/pipeline/image_sequence_source.cpp.i
 
 CMakeFiles/jetson_motion_tracker.dir/src/pipeline/image_sequence_source.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/jetson_motion_tracker.dir/src/pipeline/image_sequence_source.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/robo/Desktop/yash_project/dsa/src/pipeline/image_sequence_source.cpp -o CMakeFiles/jetson_motion_tracker.dir/src/pipeline/image_sequence_source.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/robo/Desktop/Aruco-DSA/src/pipeline/image_sequence_source.cpp -o CMakeFiles/jetson_motion_tracker.dir/src/pipeline/image_sequence_source.cpp.s
 
 CMakeFiles/jetson_motion_tracker.dir/src/processing/aruco_tracker.cpp.o: CMakeFiles/jetson_motion_tracker.dir/flags.make
 CMakeFiles/jetson_motion_tracker.dir/src/processing/aruco_tracker.cpp.o: ../src/processing/aruco_tracker.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/robo/Desktop/yash_project/dsa/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/jetson_motion_tracker.dir/src/processing/aruco_tracker.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/jetson_motion_tracker.dir/src/processing/aruco_tracker.cpp.o -c /home/robo/Desktop/yash_project/dsa/src/processing/aruco_tracker.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/robo/Desktop/Aruco-DSA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/jetson_motion_tracker.dir/src/processing/aruco_tracker.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/jetson_motion_tracker.dir/src/processing/aruco_tracker.cpp.o -c /home/robo/Desktop/Aruco-DSA/src/processing/aruco_tracker.cpp
 
 CMakeFiles/jetson_motion_tracker.dir/src/processing/aruco_tracker.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/jetson_motion_tracker.dir/src/processing/aruco_tracker.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/robo/Desktop/yash_project/dsa/src/processing/aruco_tracker.cpp > CMakeFiles/jetson_motion_tracker.dir/src/processing/aruco_tracker.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/robo/Desktop/Aruco-DSA/src/processing/aruco_tracker.cpp > CMakeFiles/jetson_motion_tracker.dir/src/processing/aruco_tracker.cpp.i
 
 CMakeFiles/jetson_motion_tracker.dir/src/processing/aruco_tracker.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/jetson_motion_tracker.dir/src/processing/aruco_tracker.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/robo/Desktop/yash_project/dsa/src/processing/aruco_tracker.cpp -o CMakeFiles/jetson_motion_tracker.dir/src/processing/aruco_tracker.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/robo/Desktop/Aruco-DSA/src/processing/aruco_tracker.cpp -o CMakeFiles/jetson_motion_tracker.dir/src/processing/aruco_tracker.cpp.s
 
 # Object files for target jetson_motion_tracker
 jetson_motion_tracker_OBJECTS = \
 "CMakeFiles/jetson_motion_tracker.dir/src/main.cpp.o" \
 "CMakeFiles/jetson_motion_tracker.dir/src/pipeline/v4l2_source.cpp.o" \
+"CMakeFiles/jetson_motion_tracker.dir/src/pipeline/nvargus_source.cpp.o" \
 "CMakeFiles/jetson_motion_tracker.dir/src/pipeline/video_file_source.cpp.o" \
 "CMakeFiles/jetson_motion_tracker.dir/src/pipeline/image_sequence_source.cpp.o" \
 "CMakeFiles/jetson_motion_tracker.dir/src/processing/aruco_tracker.cpp.o"
@@ -135,6 +149,7 @@ jetson_motion_tracker_EXTERNAL_OBJECTS =
 
 jetson_motion_tracker: CMakeFiles/jetson_motion_tracker.dir/src/main.cpp.o
 jetson_motion_tracker: CMakeFiles/jetson_motion_tracker.dir/src/pipeline/v4l2_source.cpp.o
+jetson_motion_tracker: CMakeFiles/jetson_motion_tracker.dir/src/pipeline/nvargus_source.cpp.o
 jetson_motion_tracker: CMakeFiles/jetson_motion_tracker.dir/src/pipeline/video_file_source.cpp.o
 jetson_motion_tracker: CMakeFiles/jetson_motion_tracker.dir/src/pipeline/image_sequence_source.cpp.o
 jetson_motion_tracker: CMakeFiles/jetson_motion_tracker.dir/src/processing/aruco_tracker.cpp.o
@@ -207,7 +222,7 @@ jetson_motion_tracker: /usr/local/lib/libopencv_cudaarithm.so.4.5.5
 jetson_motion_tracker: /usr/local/lib/libopencv_core.so.4.5.5
 jetson_motion_tracker: /usr/local/lib/libopencv_cudev.so.4.5.5
 jetson_motion_tracker: CMakeFiles/jetson_motion_tracker.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/robo/Desktop/yash_project/dsa/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable jetson_motion_tracker"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/robo/Desktop/Aruco-DSA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable jetson_motion_tracker"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/jetson_motion_tracker.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -220,6 +235,6 @@ CMakeFiles/jetson_motion_tracker.dir/clean:
 .PHONY : CMakeFiles/jetson_motion_tracker.dir/clean
 
 CMakeFiles/jetson_motion_tracker.dir/depend:
-	cd /home/robo/Desktop/yash_project/dsa/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/robo/Desktop/yash_project/dsa /home/robo/Desktop/yash_project/dsa /home/robo/Desktop/yash_project/dsa/build /home/robo/Desktop/yash_project/dsa/build /home/robo/Desktop/yash_project/dsa/build/CMakeFiles/jetson_motion_tracker.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/robo/Desktop/Aruco-DSA/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/robo/Desktop/Aruco-DSA /home/robo/Desktop/Aruco-DSA /home/robo/Desktop/Aruco-DSA/build /home/robo/Desktop/Aruco-DSA/build /home/robo/Desktop/Aruco-DSA/build/CMakeFiles/jetson_motion_tracker.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/jetson_motion_tracker.dir/depend
 

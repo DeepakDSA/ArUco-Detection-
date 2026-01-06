@@ -1,0 +1,8 @@
+{
+  "service_account": "/absolute/path/to/service_account.json",
+  "folder_id": "YOUR_DRIVE_FOLDER_ID",
+  "mime_overrides": {
+    ".json": "application/json",
+    ".jpg": "image/jpeg"
+  }
+}

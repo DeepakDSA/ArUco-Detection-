@@ -1,8 +1,10 @@
 #include "pipeline/v4l2_source.h"
 #include "pipeline/video_file_source.h"
 #include "pipeline/image_sequence_source.h"
+#include "pipeline/nvargus_source.h"
 #include "processing/aruco_tracker.h"
 #include "util/ring_buffer.h"
+#include "util/csv_logger.h"
 
 #include <gst/gst.h>
 #include <atomic>
@@ -24,13 +26,18 @@ int main(int argc, char** argv) {
     // parse args
     bool display = false;
     int width = 640, height = 480;
-    int framerate = 110; // fps
+    int framerate = 120; // fps (DMK37BUX273 runs 640x480 at ~120fps)
     int io_mode = 0;
     int queue_sz = 8, max_buffers = 8;
     int process_every = 1;
     bool reuse_buffer = false;
     int ring_size = 8;
     bool ring_drop_oldest = true;
+    std::string device = "/dev/video0";
+    bool enable_save = true;
+    bool enable_live = true;
+    bool enable_csv = true;
+    bool enable_metrics = true;
 
     for (int i=1;i<argc;i++) {
         std::string a(argv[i]);
@@ -46,10 +53,18 @@ int main(int argc, char** argv) {
         else if (a == "--ring-size" && i+1<argc) { ring_size = atoi(argv[++i]); }
         else if (a == "--ring-drop-oldest") { ring_drop_oldest = true; }
         else if (a == "--ring-drop-new") { ring_drop_oldest = false; }
+        else if (a == "--device" && i+1<argc) { device = argv[++i]; }
+        else if (a == "--no-save") { enable_save = false; }
+        else if (a == "--no-live") { enable_live = false; }
+        else if (a == "--no-csv") { enable_csv = false; }
+        else if (a == "--no-metrics") { enable_metrics = false; }
     }
 
     // REQUIRED for GStreamer
     gst_init(&argc, &argv);
+
+    // Initialize CSV logger (out dir from ARUCO_OUT_DIR or default)
+    CsvLogger::instance().init();
 
     // create FrameSource based on --source
     std::string source = "camera";
@@ -63,8 +78,12 @@ int main(int argc, char** argv) {
     std::unique_ptr<FrameSource> camp;
     if (source == "camera") {
         std::unique_ptr<V4L2CameraSource> cam =
-            std::make_unique<V4L2CameraSource>(width, height, framerate, 1, io_mode, queue_sz, max_buffers, true, false, reuse_buffer);
+            std::make_unique<V4L2CameraSource>(width, height, framerate, 1, io_mode, queue_sz, max_buffers, true, false, reuse_buffer, device);
         if (!cam->open()) { std::cerr << "Camera open failed\n"; return -1; }
+        camp = std::move(cam);
+    } else if (source == "csi") {
+        auto cam = std::make_unique<NvArgusSource>(width, height, framerate, 1, max_buffers, true, false);
+        if (!cam->open()) { std::cerr << "CSI camera open failed\n"; return -1; }
         camp = std::move(cam);
     } else if (source == "video") {
         if (source_path.empty()) { std::cerr << "--source-path required for video\n"; return -1; }
@@ -82,6 +101,7 @@ int main(int argc, char** argv) {
     }
 
     ArucoTracker tracker;
+    tracker.setOptions({enable_save, enable_live, enable_csv, enable_metrics});
 
     if (display) {
         cv::namedWindow("Live", cv::WINDOW_AUTOSIZE);
@@ -204,6 +224,7 @@ int main(int argc, char** argv) {
     ring.close();
     if (capture_thread.joinable()) capture_thread.join();
 
+    CsvLogger::instance().shutdown();
     camp->close();
     return 0;
 }

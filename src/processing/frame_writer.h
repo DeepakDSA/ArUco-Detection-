@@ -12,8 +12,13 @@ inline void save_frame_and_metrics(const cv::Mat& frame,
                                    const std::string& out_dir = "/data/yash_project/frames")
 {
     try {
-        std::filesystem::create_directories(out_dir);
-        std::string img = out_dir + "/frame_" + std::to_string(ts_us) + ".jpg";
+        // Allow environment override via ARUCO_OUT_DIR
+        std::string dir = out_dir;
+        const char* env = std::getenv("ARUCO_OUT_DIR");
+        if (env && *env) dir = env;
+
+        std::filesystem::create_directories(dir);
+        std::string img = dir + "/frame_" + std::to_string(ts_us) + ".jpg";
         std::string meta = img + ".json";
 
         if (!cv::imwrite(img, frame))

@@ -1,0 +1,8 @@
+{
+  "service_account": "/home/robo/Desktop/Aruco-DSA/secrets/service_account.json",
+  "folder_id": "1w50Yn5mBstCUTemPej9LrjPRcZPWpxB1",
+  "mime_overrides": {
+    ".json": "application/json",
+    ".jpg": "image/jpeg"
+  }
+}

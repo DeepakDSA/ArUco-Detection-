@@ -5,63 +5,69 @@
 #include <chrono>
 #include <thread>
 #include <iostream>
+#include <vector>
 
-V4L2CameraSource::V4L2CameraSource(int width, int height, int fr_num, int fr_den, int io_mode, int queue_buffers, int max_buffers, bool drop, bool sync, bool reuse_buffer)
-    : width_(width), height_(height), fr_num_(fr_num), fr_den_(fr_den), io_mode_(io_mode), queue_buffers_(queue_buffers), max_buffers_(max_buffers), drop_(drop), sync_(sync), reuse_buffer_(reuse_buffer) {}
+static bool gst_start_pipeline(GstElement*& pipeline, GstElement*& sink, const std::string& pipe)
+{
+    GError* err = nullptr;
+    pipeline = gst_parse_launch(pipe.c_str(), &err);
+    if (!pipeline) {
+        std::cerr << "GStreamer: failed to create pipeline: " << (err ? err->message : "unknown") << std::endl;
+        if (err) g_error_free(err);
+        return false;
+    }
+    sink = gst_bin_get_by_name(GST_BIN(pipeline), "sink");
+    if (!sink) {
+        std::cerr << "GStreamer: failed to find appsink 'sink' in pipeline" << std::endl;
+        gst_object_unref(pipeline); pipeline = nullptr;
+        return false;
+    }
+    GstStateChangeReturn ret = gst_element_set_state(pipeline, GST_STATE_PLAYING);
+    if (ret == GST_STATE_CHANGE_FAILURE) {
+        std::cerr << "GStreamer: failed to set pipeline PLAYING" << std::endl;
+        gst_object_unref(sink); sink = nullptr;
+        gst_object_unref(pipeline); pipeline = nullptr;
+        return false;
+    }
+    GstState state;
+    ret = gst_element_get_state(pipeline, &state, nullptr, GST_SECOND);
+    if (ret == GST_STATE_CHANGE_FAILURE || state != GST_STATE_PLAYING) {
+        std::cerr << "GStreamer: pipeline did not reach PLAYING state (ret=" << ret << ")" << std::endl;
+        gst_object_unref(sink); sink = nullptr;
+        gst_object_unref(pipeline); pipeline = nullptr;
+        return false;
+    }
+    std::cerr << "GStreamer: pipeline started (" << pipe << ")" << std::endl;
+    return true;
+}
+
+V4L2CameraSource::V4L2CameraSource(int width, int height, int fr_num, int fr_den, int io_mode, int queue_buffers, int max_buffers, bool drop, bool sync, bool reuse_buffer, const std::string& device)
+    : width_(width), height_(height), fr_num_(fr_num), fr_den_(fr_den), io_mode_(io_mode), queue_buffers_(queue_buffers), max_buffers_(max_buffers), drop_(drop), sync_(sync), reuse_buffer_(reuse_buffer), device_(device) {}
 
 V4L2CameraSource::~V4L2CameraSource() {
     close();
 }
 
 bool V4L2CameraSource::open() {
-    std::ostringstream ss;
-    ss << "v4l2src device=/dev/video0 ";
-    if (io_mode_ > 0) ss << "io-mode=" << io_mode_ << " ";
-    ss << "! queue max-size-buffers=" << queue_buffers_ << " leaky=2 ! ";
-    ss << "video/x-raw,format=GRAY8,width=" << width_ << ",height=" << height_ << ",framerate=" << fr_num_ << "/" << fr_den_ << " ! ";
-    ss << "appsink name=sink max-buffers=" << max_buffers_ << " drop=" << (drop_?"true":"false") << " sync=" << (sync_?"true":"false");
-
-    std::string pipe = ss.str();
-
-    pipeline_ = gst_parse_launch(pipe.c_str(), nullptr);
-
-    // allocate scratch buffer if reusing
     if (reuse_buffer_) {
         scratch_ = cv::Mat(height_, width_, CV_8UC1);
         std::cerr << "V4L2CameraSource: reusing host buffer for frames (no per-frame alloc)" << std::endl;
     }
-    if (!pipeline_) {
-        std::cerr << "GStreamer: failed to create pipeline" << std::endl;
-        return false;
+
+    // Hard-coded single pipeline for DMK37BUX273: GRAY8 640x480 110fps via mmap, no retries.
+    std::ostringstream ss;
+    ss << "v4l2src device=" << device_ << " io-mode=mmap "
+       << "! video/x-raw,format=GRAY8,width=" << width_ << ",height=" << height_ << ",framerate=" << fr_num_ << "/" << fr_den_ << " "
+       << "! appsink name=sink drop=true max-buffers=4 sync=false";
+
+    std::string pipe = ss.str();
+    std::cerr << "Trying pipeline: " << pipe << std::endl;
+    if (gst_start_pipeline(pipeline_, sink_, pipe)) {
+        return true;
     }
 
-    sink_ = gst_bin_get_by_name(GST_BIN(pipeline_), "sink");
-    if (!sink_) {
-        std::cerr << "GStreamer: failed to find appsink 'sink' in pipeline" << std::endl;
-        gst_object_unref(pipeline_);
-        pipeline_ = nullptr;
-        return false;
-    }
-
-    GstStateChangeReturn ret = gst_element_set_state(pipeline_, GST_STATE_PLAYING);
-    if (ret == GST_STATE_CHANGE_FAILURE) {
-        std::cerr << "GStreamer: failed to set pipeline PLAYING" << std::endl;
-        gst_object_unref(sink_); sink_ = nullptr;
-        gst_object_unref(pipeline_); pipeline_ = nullptr;
-        return false;
-    }
-
-    GstState state;
-    ret = gst_element_get_state(pipeline_, &state, nullptr, GST_SECOND);
-    if (ret == GST_STATE_CHANGE_FAILURE || state != GST_STATE_PLAYING) {
-        std::cerr << "GStreamer: pipeline did not reach PLAYING state (ret=" << ret << ", state=" << state << ")" << std::endl;
-        gst_object_unref(sink_); sink_ = nullptr;
-        gst_object_unref(pipeline_); pipeline_ = nullptr;
-        return false;
-    }
-
-    std::cerr << "GStreamer: pipeline started (" << pipe << ")" << std::endl;
-    return true;
+    std::cerr << "GStreamer: fixed DMK pipeline failed. Verify v4l2-ctl format/parms match and permissions are correct." << std::endl;
+    return false;
 }
 
 bool V4L2CameraSource::grab(cv::Mat& frame, uint64_t& ts_us) {

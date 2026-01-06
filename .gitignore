@@ -1,0 +1,6 @@
+# Keep credentials and local outputs out of git
+secrets/
+# Optional: local outputs and state files
+/data/
+metrics.csv
+*.log

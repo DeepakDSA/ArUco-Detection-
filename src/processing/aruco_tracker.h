@@ -9,8 +9,16 @@
 
 class ArucoTracker {
 public:
+    struct Options {
+        bool enable_save = true;   // frame+json snapshots once per second
+        bool enable_live = true;   // live JPEG/UDP snapshots (~10 FPS)
+        bool enable_csv = true;    // per-frame CSV logging
+        bool enable_metrics = true;// UDP metrics output
+    };
+
     ArucoTracker();
     void process(const cv::Mat& frame, uint64_t ts_us);
+    void setOptions(const Options& opt) { options_ = opt; }
     bool isTracking() const { return state_.tracking; }
     const TrackerState& state() const { return state_; }
 
@@ -30,4 +38,6 @@ private:
 
     bool have_prev_ = false;
     int frame_count_ = 0;
+
+    Options options_{};
 };

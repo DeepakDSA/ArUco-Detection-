@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/robo/Desktop/yash_project/dsa
+CMAKE_SOURCE_DIR = /home/robo/Desktop/Aruco-DSA
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/robo/Desktop/yash_project/dsa/build
+CMAKE_BINARY_DIR = /home/robo/Desktop/Aruco-DSA/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/robo/Desktop/yash_project/dsa/build/CMakeFiles /home/robo/Desktop/yash_project/dsa/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/robo/Desktop/Aruco-DSA/build/CMakeFiles /home/robo/Desktop/Aruco-DSA/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/robo/Desktop/yash_project/dsa/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/robo/Desktop/Aruco-DSA/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -176,6 +176,33 @@ src/pipeline/image_sequence_source.s: src/pipeline/image_sequence_source.cpp.s
 src/pipeline/image_sequence_source.cpp.s:
 	$(MAKE) -f CMakeFiles/jetson_motion_tracker.dir/build.make CMakeFiles/jetson_motion_tracker.dir/src/pipeline/image_sequence_source.cpp.s
 .PHONY : src/pipeline/image_sequence_source.cpp.s
+
+src/pipeline/nvargus_source.o: src/pipeline/nvargus_source.cpp.o
+
+.PHONY : src/pipeline/nvargus_source.o
+
+# target to build an object file
+src/pipeline/nvargus_source.cpp.o:
+	$(MAKE) -f CMakeFiles/jetson_motion_tracker.dir/build.make CMakeFiles/jetson_motion_tracker.dir/src/pipeline/nvargus_source.cpp.o
+.PHONY : src/pipeline/nvargus_source.cpp.o
+
+src/pipeline/nvargus_source.i: src/pipeline/nvargus_source.cpp.i
+
+.PHONY : src/pipeline/nvargus_source.i
+
+# target to preprocess a source file
+src/pipeline/nvargus_source.cpp.i:
+	$(MAKE) -f CMakeFiles/jetson_motion_tracker.dir/build.make CMakeFiles/jetson_motion_tracker.dir/src/pipeline/nvargus_source.cpp.i
+.PHONY : src/pipeline/nvargus_source.cpp.i
+
+src/pipeline/nvargus_source.s: src/pipeline/nvargus_source.cpp.s
+
+.PHONY : src/pipeline/nvargus_source.s
+
+# target to generate assembly for a file
+src/pipeline/nvargus_source.cpp.s:
+	$(MAKE) -f CMakeFiles/jetson_motion_tracker.dir/build.make CMakeFiles/jetson_motion_tracker.dir/src/pipeline/nvargus_source.cpp.s
+.PHONY : src/pipeline/nvargus_source.cpp.s
 
 src/pipeline/v4l2_source.o: src/pipeline/v4l2_source.cpp.o
 
@@ -273,6 +300,9 @@ help:
 	@echo "... src/pipeline/image_sequence_source.o"
 	@echo "... src/pipeline/image_sequence_source.i"
 	@echo "... src/pipeline/image_sequence_source.s"
+	@echo "... src/pipeline/nvargus_source.o"
+	@echo "... src/pipeline/nvargus_source.i"
+	@echo "... src/pipeline/nvargus_source.s"
 	@echo "... src/pipeline/v4l2_source.o"
 	@echo "... src/pipeline/v4l2_source.i"
 	@echo "... src/pipeline/v4l2_source.s"
